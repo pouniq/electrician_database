@@ -15,13 +15,14 @@
         <p>job &amp; client tracker</p>
       </div>
       <ul class="breaker-list">
-        <li><a class="breaker {{ 'active' if active == 'dashboard' }}" href="{{ url_for('dashboard') }}"><span class="switch"></span>Dashboard</a></li>
-        <li><a class="breaker {{ 'active' if active == 'clients' }}" href="{{ url_for('clients') }}"><span class="switch"></span>Clients</a></li>
-        <li><a class="breaker {{ 'active' if active == 'jobs' }}" href="{{ url_for('jobs') }}"><span class="switch"></span>Jobs</a></li>
-        <li><a class="breaker {{ 'active' if active == 'materials' }}" href="{{ url_for('materials') }}"><span class="switch"></span>Materials</a></li>
-        <li><a class="breaker {{ 'active' if active == 'invoices' }}" href="{{ url_for('invoices') }}"><span class="switch"></span>Invoices</a></li>
+        <li><a class="breaker {{ 'active' if active == 'dashboard' }}" href="{{ url_for('dashboard') }}"><span class="switch"></span>داشبورد</a></li>
+        <li><a class="breaker {{ 'active' if active == 'customers' }}" href="{{ url_for('customers') }}"><span class="switch"></span>مشتریان</a></li>
+        <li><a class="breaker {{ 'active' if active == 'jobs' }}" href="{{ url_for('jobs') }}"><span class="switch"></span>کارها</a></li>
+        <li><a class="breaker {{ 'active' if active == 'materials' }}" href="{{ url_for('materials') }}"><span class="switch"></span>وسایل</a></li>
+        <li><a class="breaker {{ 'active' if active == 'payments' }}" href="{{ url_for('payments') }}"><span class="switch"></span>پرداختی ها</a></li>
       </ul>
     </nav>
+
     <main class="main">
       {% with messages = get_flashed_messages() %}
         {% if messages %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}مشتریان{% endblock %}
+{% block content %}
+{% set active = 'customers' %}
+
+<div class="page-header">
+  <div>
+    <h2>مشتریان</h2>
+    <div class="sub">{{ customers|length }} on file</div>
+  </div>
+<a class="btn" href="{{ url_for('add_customer') }}">اضافه کردن مشتری</a>
+</div>
+
+{% if customers %}
+<table>
+  <thead><tr><th>Name</th><th>last_name</th><th>Phone</th><th>Address</th></tr></thead>
+  <tbody>
+    {% for c in customers %}
+    <tr>
+      <td>{{ c.name }}</td>
+      <td>{{ c.last_name }}</td> 
+      <td class="num">{{ c.phone or '—' }}</td>
+      <td>{{ c.address or '—' }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<div class="empty">هیچ مشتری اضافه نکردید.</div>
+{% endif %}
+{% endblock %}

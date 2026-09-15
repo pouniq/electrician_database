@@ -5,31 +5,31 @@
 
 <div class="page-header">
   <div>
-    <h2>Log a job</h2>
-    <div class="sub">Tied to a client on file</div>
+    <h2>ثبت کار</h2>
+    <div class="sub">وصل به فایل مشتری</div>
   </div>
 </div>
 
-{% if clients %}
+{% if customers %}
 <form class="stack" method="POST">
   <div class="field">
-    <label for="client_id">Client</label>
-    <select id="client_id" name="client_id" required>
-      {% for c in clients %}
+    <label for="id">مشتری</label>
+    <select id="id" name="customers_id" required>
+      {% for c in customerss %}
       <option value="{{ c.id }}">{{ c.name }}</option>
       {% endfor %}
     </select>
   </div>
   <div class="field">
-    <label for="title">Job title</label>
+    <label for="title">عنوان کار</label>
     <input type="text" id="title" name="title" placeholder="e.g. Panel upgrade, outlet install" required>
   </div>
   <div class="field">
-    <label for="description">Description</label>
+    <label for="description">توضیحات</label>
     <textarea id="description" name="description"></textarea>
   </div>
   <div class="field">
-    <label for="status">Status</label>
+    <label for="status">وضعیت</label>
     <select id="status" name="status">
       {% for s in statuses %}
       <option value="{{ s }}">{{ s }}</option>
@@ -37,17 +37,13 @@
     </select>
   </div>
   <div class="field">
-    <label for="job_date">Date</label>
+    <label for="job_date">تاریخ</label>
     <input type="date" id="job_date" name="job_date" value="{{ today }}">
   </div>
-  <div class="field">
-    <label for="address">Site address</label>
-    <input type="text" id="address" name="address">
-  </div>
-  <button class="btn" type="submit">Save job</button>
+  <button class="btn" type="submit">ثبت کار</button>
   <a class="btn btn-quiet" style="margin-left:8px;" href="{{ url_for('jobs') }}">Cancel</a>
 </form>
 {% else %}
-<div class="empty">Add a client before logging a job. <a href="{{ url_for('add_client') }}">Add one now</a>.</div>
+<div class="empty">قبل اضافه کردن کار یک مشتری اضافه کنید <a href="{{ url_for('add_customer') }}">اضافه کردن کار</a>.</div>
 {% endif %}
 {% endblock %}
