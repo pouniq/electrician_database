@@ -1,30 +1,30 @@
 {% extends "base.html" %}
-{% block title %}Invoices — Site Log{% endblock %}
+{% block title %}payments— Site Log{% endblock %}
 {% block content %}
 {% set active = 'invoices' %}
 
 <div class="page-header">
   <div>
-    <h2>Invoices</h2>
+    <h2>پرداختی ها</h2>
     <div class="sub">{{ invoices|length }} issued</div>
   </div>
-  <a class="btn" href="{{ url_for('add_invoice') }}">Create invoice</a>
+  
+  <a class="btn" href="{{ url_for('add_payment') }}">ساخت پرداختی</a>
 </div>
 
-{% if invoices %}
+{% if payments%}
 <table>
-  <thead><tr><th>Job</th><th>Client</th><th class="num">Amount</th><th>Issued</th><th>Due</th><th>Status</th></tr></thead>
+  <thead><tr><th>کار</th><th>مشتری</th><th class="num">مبلغ</th><th>تاریخ</th><th>وضعیت</th></tr></thead>
   <tbody>
-    {% for inv in invoices %}
+    {% for inv in payments%}
     <tr>
       <td>{{ inv.job_title }}</td>
       <td>{{ inv.client_name }}</td>
       <td class="num">${{ '%.2f'|format(inv.amount) }}</td>
       <td class="num">{{ inv.issue_date or '—' }}</td>
-      <td class="num">{{ inv.due_date or '—' }}</td>
       <td>
         <span class="{{ 'tag-paid' if inv.paid else 'tag-unpaid' }}">{{ 'Paid' if inv.paid else 'Unpaid' }}</span>
-        <form class="toggle-form" method="POST" action="{{ url_for('toggle_paid', invoice_id=inv.id) }}">
+        <form class="toggle-form" method="POST" action="{{ url_for('toggle_paid', payment_id=inv.id) }}">
           <button type="submit">mark {{ 'unpaid' if inv.paid else 'paid' }}</button>
         </form>
       </td>
@@ -33,6 +33,6 @@
   </tbody>
 </table>
 {% else %}
-<div class="empty">No invoices yet.</div>
+<div class="empty">هیج پرداختی وجود ندارد</div>
 {% endif %}
 {% endblock %}

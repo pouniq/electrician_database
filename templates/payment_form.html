@@ -5,15 +5,15 @@
 
 <div class="page-header">
   <div>
-    <h2>Create invoice</h2>
-    <div class="sub">Tied to a job on file</div>
+    <h2>پرداختی ها</h2>
+    <div class="sub">متصل به کار</div>
   </div>
 </div>
 
 {% if jobs %}
 <form class="stack" method="POST">
   <div class="field">
-    <label for="job_id">Job</label>
+    <label for="job_id">کار</label>
     <select id="job_id" name="job_id" required>
       {% for j in jobs %}
       <option value="{{ j.id }}">{{ j.title }}</option>
@@ -21,25 +21,21 @@
     </select>
   </div>
   <div class="field">
-    <label for="amount">Amount ($)</label>
+    <label for="amount">مبلغ</label>
     <input type="number" step="0.01" id="amount" name="amount" required>
   </div>
   <div class="field">
-    <label for="issue_date">Issue date</label>
+    <label for="issue_date">تاریخ پرداخت</label>
     <input type="date" id="issue_date" name="issue_date" value="{{ today }}">
-  </div>
-  <div class="field">
-    <label for="due_date">Due date</label>
-    <input type="date" id="due_date" name="due_date">
   </div>
   <div class="field field-check">
     <input type="checkbox" id="paid" name="paid">
-    <label for="paid" style="margin:0;">Already paid</label>
+    <label for="paid" style="margin:0;">پرداخت شده</label>
   </div>
-  <button class="btn" type="submit">Save invoice</button>
-  <a class="btn btn-quiet" style="margin-left:8px;" href="{{ url_for('invoices') }}">Cancel</a>
+  <button class="btn" type="submit">ذخیره پرداختی</button>
+  <a class="btn btn-quiet" style="margin-left:8px;" href="{{ url_for('payments') }}">Cancel</a>
 </form>
 {% else %}
-<div class="empty">Log a job before invoicing it. <a href="{{ url_for('add_job') }}">Log one now</a>.</div>
+<div class="empty">یک کار را ثبت کنید قبل پرداختی <a href="{{ url_for('add_job') }}">ثبت کنید.</a>.</div>
 {% endif %}
 {% endblock %}

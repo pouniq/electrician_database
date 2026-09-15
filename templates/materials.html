@@ -5,15 +5,15 @@
 
 <div class="page-header">
   <div>
-    <h2>Materials</h2>
-    <div class="sub">{{ materials|length }} entries</div>
+    <h2>وسایل</h2>
+    <div class="sub">{{ materials|length }} ورودی</div>
   </div>
   <a class="btn" href="{{ url_for('add_material') }}">Log materials</a>
 </div>
 
 {% if materials %}
 <table>
-  <thead><tr><th>Item</th><th>Job</th><th class="num">Qty</th><th class="num">Unit cost</th><th class="num">Total</th></tr></thead>
+  <thead><tr><th>Item</th><th>Job</th><th class="num">تعداد</th><th class="num">قیمت یک عدد</th><th class="num">جمع</th></tr></thead>
   <tbody>
     {% for m in materials %}
     <tr>
@@ -27,6 +27,6 @@
   </tbody>
 </table>
 {% else %}
-<div class="empty">No materials logged yet.</div>
+<div class="empty">هیچ محصولی وارد نشده</div>
 {% endif %}
 {% endblock %}
