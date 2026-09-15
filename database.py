@@ -1,5 +1,6 @@
 import sqlite3
 from pathlib import Path
+from contextlib import contextmanager
 
 DB_PATH = Path(__file__).parent / "electrician.db"
 
@@ -13,6 +14,23 @@ CREATE TABLE IF NOT EXISTS "customers" (
 	"notes"	TEXT NOT NULL,
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
+
+
+
+CREATE TABLE IF NOT EXISTS "jobs" (
+	"id"	INTEGER,
+	"customer_id"	INTEGER NOT NULL,
+	"job_title"	TEXT NOT NULL,
+	"description"	TEXT NOT NULL,
+	"status"	TEXT NOT NULL DEFAULT 'Quoted',
+	"job_date"	TEXT NOT NULL,
+	"address"	TEXT NOT NULL,
+	"labor_pay"	INTEGER NOT NULL,
+	FOREIGN KEY("customer_id") REFERENCES "customers"("id"),
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+
+
 
 CREATE TABLE IF NOT EXISTS "jobs" (
 	"id"	INTEGER,
@@ -63,6 +81,25 @@ CREATE TABLE IF NOT EXISTS "payments" (
 
 
 """
+
+
+
+
+@contextmanager
+def get_connection():
+    conn = sqlite3.connect(DB_PATH, timeout=10)  # wait up to 10 seconds
+    conn.row_factory = sqlite3.Row
+    conn.execute("PRAGMA foreign_keys = ON")
+    conn.execute("PRAGMA journal_mode = WAL")    # better for concurrent access
+    try:
+        yield conn
+        conn.commit()
+    except Exception:
+        conn.rollback()
+        raise
+    finally:
+        conn.close()
+
 
 
 def get_connection():

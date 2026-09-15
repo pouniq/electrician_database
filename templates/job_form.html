@@ -1,33 +1,36 @@
 {% extends "base.html" %}
-{% block title %}Log a Job — Site Log{% endblock %}
+{% block title %}ثبت کار — Site Log{% endblock %}
 {% block content %}
 {% set active = 'jobs' %}
 
 <div class="page-header">
   <div>
     <h2>ثبت کار</h2>
-    <div class="sub">وصل به فایل مشتری</div>
+    <div class="sub">وصل به مشتری</div>
   </div>
 </div>
 
 {% if customers %}
 <form class="stack" method="POST">
   <div class="field">
-    <label for="id">مشتری</label>
-    <select id="id" name="customers_id" required>
-      {% for c in customerss %}
-      <option value="{{ c.id }}">{{ c.name }}</option>
+    <label for="customer_id">مشتری</label>
+    <select id="customer_id" name="customer_id" required>
+      {% for c in customers %}
+      <option value="{{ c.id }}">{{ c.name }} {{ c.last_name }}</option>
       {% endfor %}
     </select>
   </div>
+
   <div class="field">
     <label for="title">عنوان کار</label>
-    <input type="text" id="title" name="title" placeholder="e.g. Panel upgrade, outlet install" required>
+    <input type="text" id="title" name="title" placeholder="مثلاً تعویض تابلو، نصب پریز" required>
   </div>
+
   <div class="field">
     <label for="description">توضیحات</label>
     <textarea id="description" name="description"></textarea>
   </div>
+
   <div class="field">
     <label for="status">وضعیت</label>
     <select id="status" name="status">
@@ -36,14 +39,29 @@
       {% endfor %}
     </select>
   </div>
+
   <div class="field">
     <label for="job_date">تاریخ</label>
     <input type="date" id="job_date" name="job_date" value="{{ today }}">
   </div>
+
+  <div class="field">
+    <label for="address">آدرس محل کار</label>
+    <input type="text" id="address" name="address">
+  </div>
+
+  <div class="field">
+    <label for="labor_pay">دستمزد (تومان)</label>
+    <input type="number" id="labor_pay" name="labor_pay" value="0">
+  </div>
+
   <button class="btn" type="submit">ثبت کار</button>
-  <a class="btn btn-quiet" style="margin-left:8px;" href="{{ url_for('jobs') }}">Cancel</a>
+  <a class="btn btn-quiet" style="margin-left:8px;" href="{{ url_for('jobs') }}">انصراف</a>
 </form>
 {% else %}
-<div class="empty">قبل اضافه کردن کار یک مشتری اضافه کنید <a href="{{ url_for('add_customer') }}">اضافه کردن کار</a>.</div>
+<div class="empty">
+  قبل از ثبت کار باید حداقل یک مشتری داشته باشید.
+  <a href="{{ url_for('add_customer') }}">اضافه کردن مشتری</a>
+</div>
 {% endif %}
 {% endblock %}

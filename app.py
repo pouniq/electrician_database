@@ -130,9 +130,6 @@ def jobs():
 
     return render_template("jobs.html", jobs=rows);
 
-
-
-
 @app.route("/jobs/add", methods=["GET", "POST"])
 def add_job():
     conn = get_connection()
@@ -141,32 +138,27 @@ def add_job():
         conn.execute(
             """
             INSERT INTO jobs
-            (customer_id,date, description, job_type, labor_pay, status)
-            VALUES (?, ?, ?, ?, ?, ?)
+            (customer_id, job_title, description, status, job_date, address, labor_pay)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 request.form["customer_id"],
-                request.form["date"].strip(),
+                request.form["title"].strip(),
                 request.form.get("description", "").strip(),
-                request.form.get("date")
-                or date.today().isoformat(),
-                
-                request.form.get("labor_pay", ""),
                 request.form.get("status", "Quoted"),
+                request.form.get("job_date") or date.today().isoformat(),
+                request.form.get("address", "").strip(),
+                request.form.get("labor_pay") or 0,
             ),
         )
-
         conn.commit()
         conn.close()
-
-        flash("Job added.")
-
+        flash("کار با موفقیت ثبت شد.")
         return redirect(url_for("jobs"))
 
     customer_list = conn.execute(
         "SELECT * FROM customers ORDER BY name, last_name"
     ).fetchall()
-
     conn.close()
 
     return render_template(
@@ -175,7 +167,6 @@ def add_job():
         statuses=STATUSES,
         today=date.today().isoformat(),
     )
-
 
 # ============================================================
 # Materials
