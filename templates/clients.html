@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Clients — Site Log{% endblock %}
+{% block content %}
+{% set active = 'clients' %}
+
+<div class="page-header">
+  <div>
+    <h2>Clients</h2>
+    <div class="sub">{{ clients|length }} on file</div>
+  </div>
+  <a class="btn" href="{{ url_for('add_client') }}">Add client</a>
+</div>
+
+{% if clients %}
+<table>
+  <thead><tr><th>Name</th><th>Phone</th><th>Email</th><th>Address</th></tr></thead>
+  <tbody>
+    {% for c in clients %}
+    <tr>
+      <td>{{ c.name }}</td>
+      <td class="num">{{ c.phone or '—' }}</td>
+      <td>{{ c.email or '—' }}</td>
+      <td>{{ c.address or '—' }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<div class="empty">No clients yet. Add your first one to get started.</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Site Log{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="layout">
+    <nav class="panel">
+      <div class="panel-brand">
+        <span class="bolt">⚡</span>
+        <h1>Site Log</h1>
+        <p>job &amp; client tracker</p>
+      </div>
+      <ul class="breaker-list">
+        <li><a class="breaker {{ 'active' if active == 'dashboard' }}" href="{{ url_for('dashboard') }}"><span class="switch"></span>Dashboard</a></li>
+        <li><a class="breaker {{ 'active' if active == 'clients' }}" href="{{ url_for('clients') }}"><span class="switch"></span>Clients</a></li>
+        <li><a class="breaker {{ 'active' if active == 'jobs' }}" href="{{ url_for('jobs') }}"><span class="switch"></span>Jobs</a></li>
+        <li><a class="breaker {{ 'active' if active == 'materials' }}" href="{{ url_for('materials') }}"><span class="switch"></span>Materials</a></li>
+        <li><a class="breaker {{ 'active' if active == 'invoices' }}" href="{{ url_for('invoices') }}"><span class="switch"></span>Invoices</a></li>
+      </ul>
+    </nav>
+    <main class="main">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for m in messages %}<div class="flash">{{ m }}</div>{% endfor %}
+        {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Materials — Site Log{% endblock %}
+{% block content %}
+{% set active = 'materials' %}
+
+<div class="page-header">
+  <div>
+    <h2>Materials</h2>
+    <div class="sub">{{ materials|length }} entries</div>
+  </div>
+  <a class="btn" href="{{ url_for('add_material') }}">Log materials</a>
+</div>
+
+{% if materials %}
+<table>
+  <thead><tr><th>Item</th><th>Job</th><th class="num">Qty</th><th class="num">Unit cost</th><th class="num">Total</th></tr></thead>
+  <tbody>
+    {% for m in materials %}
+    <tr>
+      <td>{{ m.name }}</td>
+      <td>{{ m.job_title }}</td>
+      <td class="num">{{ m.quantity }}</td>
+      <td class="num">${{ '%.2f'|format(m.unit_cost) }}</td>
+      <td class="num">${{ '%.2f'|format(m.quantity * m.unit_cost) }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<div class="empty">No materials logged yet.</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Jobs — Site Log{% endblock %}
+{% block content %}
+{% set active = 'jobs' %}
+
+<div class="page-header">
+  <div>
+    <h2>Jobs</h2>
+    <div class="sub">{{ jobs|length }} logged</div>
+  </div>
+  <a class="btn" href="{{ url_for('add_job') }}">Log a job</a>
+</div>
+
+{% if jobs %}
+<table>
+  <thead><tr><th>Job</th><th>Client</th><th>Status</th><th>Date</th><th>Address</th></tr></thead>
+  <tbody>
+    {% for j in jobs %}
+    <tr>
+      <td>{{ j.title }}</td>
+      <td>{{ j.client_name }}</td>
+      <td><span class="status-pill {{ 'done' if j.status == 'Done' else 'progress' if j.status == 'In Progress' else '' }}">{{ j.status }}</span></td>
+      <td class="num">{{ j.job_date or '—' }}</td>
+      <td>{{ j.address or '—' }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<div class="empty">No jobs yet. Add a client first, then log a job against them.</div>
+{% endif %}
+{% endblock %}

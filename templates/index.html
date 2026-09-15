@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — Site Log{% endblock %}
+{% block content %}
+{% set active = 'dashboard' %}
+
+<div class="page-header">
+  <div>
+    <h2>Dashboard</h2>
+    <div class="sub">Overview of your active work</div>
+  </div>
+</div>
+
+<div class="readouts">
+  <div class="readout">
+    <div class="value">{{ client_count }}</div>
+    <div class="label">Clients on file</div>
+  </div>
+  <div class="readout">
+    <div class="value">{{ open_jobs }}</div>
+    <div class="label">Open jobs</div>
+  </div>
+  <div class="readout">
+    <div class="value">${{ '%.2f'|format(unpaid_total) }}</div>
+    <div class="label">Outstanding invoices</div>
+  </div>
+</div>
+
+<h3 style="font-size:15px; font-weight:600; margin-bottom:12px;">Recent jobs</h3>
+{% if recent_jobs %}
+<table>
+  <thead>
+    <tr><th>Job</th><th>Client</th><th>Status</th><th>Date</th></tr>
+  </thead>
+  <tbody>
+    {% for j in recent_jobs %}
+    <tr>
+      <td>{{ j.title }}</td>
+      <td>{{ j.client_name }}</td>
+      <td><span class="status-pill {{ 'done' if j.status == 'Done' else 'progress' if j.status == 'In Progress' else '' }}">{{ j.status }}</span></td>
+      <td class="num">{{ j.job_date or '—' }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<div class="empty">No jobs logged yet. Add a client, then log your first job.</div>
+{% endif %}
+{% endblock %}
