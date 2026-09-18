@@ -20,7 +20,7 @@
     <tr>
       <td>{{ inv.job_title }}</td>
       <td>{{ inv.client_name }}</td>
-      <td class="num">${{ '%.2f'|format(inv.amount) }}</td>
+      <td class="num">تومان {{ '%.1f'|format(inv.amount) }}</td>
       <td class="num">{{ inv.issue_date or '—' }}</td>
       <td>
         <span class="{{ 'tag-paid' if inv.paid else 'tag-unpaid' }}">{{ 'Paid' if inv.paid else 'Unpaid' }}</span>

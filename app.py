@@ -5,7 +5,7 @@ from database import get_connection, init_db
 app = Flask(__name__)
 app.secret_key = "dev-key-change-this-if-you-deploy"
 
-STATUSES = ["Quoted", "Scheduled", "In Progress", "Done", "Invoiced"]
+STATUSES = ["در نظر گرفته شده", "برنامه ریزی شده", "در حال انجام", "تکمیل", "پرداخت شده"]
 
 # ============================================================
 # Dashboard

@@ -5,19 +5,19 @@
 
 <div class="page-header">
   <div>
-    <h2>Jobs</h2>
-    <div class="sub">{{ jobs|length }} logged</div>
+    <h2>کارها</h2>
+    <div class="sub">{{ jobs|length }} ثبت شده</div>
   </div>
-  <a class="btn" href="{{ url_for('add_job') }}">Log a job</a>
+  <a class="btn" href="{{ url_for('add_job') }}">ثبت کار</a>
 </div>
 
 {% if jobs %}
 <table>
-  <thead><tr><th>Job</th><th>Client</th><th>Status</th><th>Date</th><th>Address</th></tr></thead>
+  <thead><tr><th>کار</th><th>مشتری</th><th>وضعیت</th><th>تاریخ</th><th>آدرس</th></tr></thead>
   <tbody>
     {% for j in jobs %}
     <tr>
-      <td>{{ j.job_title }}</td>
+      <td>{{ j.id }}</td>
       <td>{{ j.customer_name }} {{ j.customer_last_name }}</td>
       <td><span class="status-pill {{ '' if j.status == 'Done' else 'progress' if j.status == 'In Progress' else '' }}">{{ j.status }}</span></td>
       <td class="num">{{ j.job_date or '—' }}</td>
@@ -27,6 +27,6 @@
   </tbody>
 </table>
 {% else %}
-<div class="empty">No jobs yet. Add a client first, then log a job against them.</div>
+<div class="empty">هیچ کاری ثبت نشده است اول مشتری را اضافه کنید بعد کار مربوط به آن را اضافه کن</div>
 {% endif %}
 {% endblock %}

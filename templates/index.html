@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Dashboard — Site Log{% endblock %}
+{% block title %}داشبورد - ثبت مشتری ها{% endblock %}
 {% block content %}
 {% set active = 'dashboard' %}
 
@@ -12,30 +12,30 @@
 
 <div class="readouts">
   <div class="readout">
-    <div class="value">{{ client_count }}</div>
-    <div class="label">Clients on file</div>
+    <div class="value">{{ customer_count }}</div>
+    <div class="label">مشتری های ثبت شده</div>
   </div>
   <div class="readout">
     <div class="value">{{ open_jobs }}</div>
-    <div class="label">Open jobs</div>
+    <div class="label">کارهای در حال انجام</div>
   </div>
   <div class="readout">
-    <div class="value">${{ '%.2f'|format(unpaid_total) }}</div>
-    <div class="label">Outstanding invoices</div>
+    <div class="value">تومان {{ '%.1f'|format(unpaid_total) }}</div>
+    <div class="label">پرداختی ها </div>
   </div>
 </div>
 
-<h3 style="font-size:15px; font-weight:600; margin-bottom:12px;">Recent jobs</h3>
+<h3 style="font-size:15px; font-weight:600; margin-bottom:12px;">کارهای اخیر</h3>
 {% if recent_jobs %}
 <table>
   <thead>
-    <tr><th>Job</th><th>Client</th><th>Status</th><th>Date</th></tr>
+    <tr><th>کار</th><th>مشتری</th><th>وضعیت</th><th>تاریخ</th></tr>
   </thead>
   <tbody>
     {% for j in recent_jobs %}
     <tr>
       <td>{{ j.title }}</td>
-      <td>{{ j.client_name }}</td>
+      <td>{{ j.customer_name }}</td>
       <td><span class="status-pill {{ 'done' if j.status == 'Done' else 'progress' if j.status == 'In Progress' else '' }}">{{ j.status }}</span></td>
       <td class="num">{{ j.job_date or '—' }}</td>
     </tr>
